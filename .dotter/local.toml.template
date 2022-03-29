@@ -1,0 +1,2 @@
+# packages = ["linux-gui"]
+packages = ["linux-shell"]
