@@ -13,6 +13,9 @@
 [tmux.files]
 "tmux/.tmux.conf" = "~/.tmux.conf"
 
+[nvim.files]
+"nvim" = "~/.config/nvim"
+
 
 # Terms
 
