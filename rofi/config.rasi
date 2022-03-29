@@ -1,0 +1,7 @@
+configuration {
+  modi: "window,drun,ssh,combi";
+  font: "hack 10";
+	show-icons: true;
+	icon-theme: "Papirus";
+}
+@theme "~/.config/rofi/themes/rounded-nord-dark.rasi"

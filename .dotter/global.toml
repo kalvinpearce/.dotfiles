@@ -1,8 +1,79 @@
 [helpers]
 
-[default]
-depends = []
+# Shell etc
 
-[default.files]
+[git.files]
+"git/.gitignore" = "~/.gitignore"
+"git/.gitconfig" = "~/.gitconfig"
 
-[default.variables]
+[zsh.files]
+"zsh/.zshenv" = "~/.zshenv"
+"zsh" = { target = "~/.config/zsh", type = "symbolic" }
+
+[tmux.files]
+"tmux/.tmux.conf" = "~/.tmux.conf"
+
+
+# Terms
+
+[alacritty.files]
+"terms/alacritty" = "~/.config/alacritty"
+
+[kitty.files]
+"terms/kitty" = "~/.config/kitty"
+
+[wezterm.files]
+"terms/wezterm" = "~/.config/wezterm"
+
+
+# GUI
+
+[X.files]
+"X11" = "~/"
+
+[awesome.files]
+"awesome" = { target = "~/.config/awesome", type = "symbolic" }
+
+
+# Misc
+
+[bottom.files]
+"bottom" = { target = "~/.config/bottom", type = "symbolic" }
+
+[flameshot.files]
+"flameshot" = { target = "~/.config/flameshot", type = "symbolic" }
+
+[gtk3.files]
+"gtk3" = "~/.config/gtk-3.0"
+
+[lazygit.files]
+"lazygit" = "~/.config/lazygit"
+
+[neofetch.files]
+"neofetch" = { target = "~/.config/neofetch", type = "symbolic" }
+
+[picom.files]
+"picom" = "~/.config/picom"
+
+[rofi.files]
+"rofi/rofimoji.rc" = "~/.config/rofimoji.rc"
+"rofi/.emoji_list" = "~/.emoji_list"
+"rofi" = "~/.config/rofi"
+
+
+# Packs
+
+[linux-shell]
+depends = ["git", "zsh", "tmux", "bottom", "lazygit", "neofetch"]
+
+[linux-gui]
+depends = [
+  "linux-shell",
+  "X",
+  "gtk3",
+  "picom",
+  "wezterm",
+  "awesome",
+  "rofi",
+  "flameshot",
+]
