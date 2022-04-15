@@ -12,10 +12,10 @@ return {
 		-- Editing these also edits the default program
 		-- associated with each tag/workspace
 		browser = "env google-chrome-stable",
-		editor = "gvim",
+		editor = "nvim",
 		files = "dolphin",
 		music = "spotify",
-		social = "env discord",
+		social = "ferdi",
 		game = rofi_command,
 	},
 	-- List of apps to start once on start-up
