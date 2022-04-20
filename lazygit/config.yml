@@ -8,6 +8,8 @@ gui:
     'Kalvin Pearce': '#0000FF'
 
 git:
+  log:
+    order: 'date-order'
   allBranchesLogCmd: "git log --graph --all --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline"
   branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium --oneline {{branchName}} --"
   paging:
