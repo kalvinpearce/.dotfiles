@@ -47,10 +47,10 @@
 "flameshot" = { target = "~/.config/flameshot", type = "symbolic" }
 
 [gtk3.files]
-"gtk3" = "~/.config/gtk-3.0"
+"gtk3" = { target = "~/.config/gtk-3.0", type = "symbolic" }
 
 [lazygit.files]
-"lazygit" = "~/.config/lazygit"
+"lazygit" = { target = "~/.config/lazygit", type = "symbolic" }
 
 [neofetch.files]
 "neofetch" = { target = "~/.config/neofetch", type = "symbolic" }
