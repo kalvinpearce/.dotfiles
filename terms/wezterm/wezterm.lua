@@ -7,7 +7,7 @@ return {
 	font_size = 12.0,
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 	default_cursor_style = "BlinkingBar",
-	enable_csi_u_key_encoding = true,
+	enable_csi_u_key_encoding = false,
 	exit_behavior = "Close",
 	window_close_confirmation = "NeverPrompt",
 	window_padding = {
