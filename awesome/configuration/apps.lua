@@ -15,7 +15,7 @@ return {
 		editor = "nvim",
 		files = "dolphin",
 		music = "spotify",
-		social = "ferdi",
+		social = "discord",
 		game = rofi_command,
 	},
 	-- List of apps to start once on start-up
