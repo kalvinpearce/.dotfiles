@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-alias dotter="$HOME/.dotfiles/.dotter/dotter"
+alias dotter="cd $HOME/.dotfiles && .dotter/dotter"
 
 alias ls='ls --color=auto'
 alias lsl='ls -l'
@@ -24,3 +24,10 @@ alias nvimn='nvim --noplugin -u NONE'             # launch nvim without any plug
 alias tmuxk='tmux kill-session -t'
 alias tmuxa='tmux attach -t'
 alias tmuxl='tmux list-sessions'
+
+alias r='. ranger'
+
+alias lg='lazygit'
+alias lzd='lazydocker'
+
+alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'

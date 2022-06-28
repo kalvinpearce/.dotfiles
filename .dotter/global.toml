@@ -4,64 +4,65 @@
 
 [git.files]
 "git/.gitignore" = "~/.gitignore"
-"git/.gitconfig" = "~/.gitconfig"
+"git/config" = "$XDG_CONFIG_HOME/git/config"
 
 [zsh.files]
 "zsh/.zshenv" = "~/.zshenv"
-"zsh" = { target = "~/.config/zsh", type = "symbolic" }
+"zsh" = { target = "$XDG_CONFIG_HOME/zsh", type = "symbolic" }
 
 [tmux.files]
-"tmux/.tmux.conf" = "~/.tmux.conf"
+"tmux/tmux.conf" = "$XDG_CONFIG_HOME/tmux/tmux.conf"
 
 [nvim.files]
-"nvim" = "~/.config/nvim"
+"nvim" = "$XDG_CONFIG_HOME/nvim"
 
 
 # Terms
 
 [alacritty.files]
-"terms/alacritty" = "~/.config/alacritty"
+"terms/alacritty" = "$XDG_CONFIG_HOME/alacritty"
 
 [kitty.files]
-"terms/kitty" = "~/.config/kitty"
+"terms/kitty" = "$XDG_CONFIG_HOME/kitty"
 
 [wezterm.files]
-"terms/wezterm" = "~/.config/wezterm"
+"terms/wezterm" = "$XDG_CONFIG_HOME/wezterm"
 
 
 # GUI
 
 [X.files]
-"X11" = "~/"
+"X11/xinitrc" = "~/.xinitrc"
+"X11/xresources" = "~/.Xresources"
 
 [awesome.files]
-"awesome" = { target = "~/.config/awesome", type = "symbolic" }
+"awesome" = { target = "$XDG_CONFIG_HOME/awesome", type = "symbolic" }
 
 
 # Misc
 
 [bottom.files]
-"bottom" = { target = "~/.config/bottom", type = "symbolic" }
+"bottom" = { target = "$XDG_CONFIG_HOME/bottom", type = "symbolic" }
 
 [flameshot.files]
-"flameshot" = { target = "~/.config/flameshot", type = "symbolic" }
+"flameshot" = { target = "$XDG_CONFIG_HOME/flameshot", type = "symbolic" }
 
 [gtk3.files]
-"gtk3" = { target = "~/.config/gtk-3.0", type = "symbolic" }
+"gtk3" = { target = "$XDG_CONFIG_HOME/gtk-3.0", type = "symbolic" }
 
 [lazygit.files]
-"lazygit" = { target = "~/.config/lazygit", type = "symbolic" }
+"lazygit" = { target = "$XDG_CONFIG_HOME/lazygit", type = "symbolic" }
 
 [neofetch.files]
-"neofetch" = { target = "~/.config/neofetch", type = "symbolic" }
+"neofetch" = { target = "$XDG_CONFIG_HOME/neofetch", type = "symbolic" }
 
 [picom.files]
-"picom" = "~/.config/picom"
+"picom" = "$XDG_CONFIG_HOME/picom"
 
 [rofi.files]
-"rofi/rofimoji.rc" = "~/.config/rofimoji.rc"
-"rofi/.emoji_list" = "~/.emoji_list"
-"rofi" = "~/.config/rofi"
+"rofi/rofimoji.rc" = "$XDG_CONFIG_HOME/rofimoji.rc"
+# "rofi/.emoji_list" = ".emoji_list"
+"rofi" = "$XDG_CONFIG_HOME/rofi"
 
 
 # Packs
