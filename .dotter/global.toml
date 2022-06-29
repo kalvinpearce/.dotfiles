@@ -32,8 +32,8 @@
 # GUI
 
 [X.files]
-"X11/xinitrc" = "~/.xinitrc"
-"X11/xresources" = "~/.Xresources"
+"X11/xinitrc" = "$XDG_CONFIG_HOME/X11/xinitrc"
+"X11/xresources" = "$XDG_CONFIG_HOME/X11/Xresources"
 
 [awesome.files]
 "awesome" = { target = "$XDG_CONFIG_HOME/awesome", type = "symbolic" }

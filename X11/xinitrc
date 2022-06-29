@@ -1,2 +1,2 @@
-xrdb ~/.Xresources
-export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
+xrdb $XDG_CONFIG_HOME/xresources
+exec awesome
