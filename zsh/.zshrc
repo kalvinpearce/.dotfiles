@@ -25,7 +25,6 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 
 source $ZDOTDIR/env.zsh
 source $ZDOTDIR/aliases.zsh
-source $ZDOTDIR/vim.zsh
 source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/bindings.zsh
 
