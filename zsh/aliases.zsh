@@ -19,6 +19,7 @@ alias egrep='egrep --color=auto'
 
 alias pg='ping 8.8.8.8'
 
+alias n="nvim"
 alias nvimn='nvim --noplugin -u NONE'             # launch nvim without any plugin or config
 
 alias tmuxk='tmux kill-session -t'
