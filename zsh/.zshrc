@@ -27,8 +27,6 @@ source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/bindings.zsh
 
-source /usr/share/nvm/init-nvm.sh
-
 source $ZDOTDIR/plugins.zsh
 
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
