@@ -1,3 +1,6 @@
+# dsiable vi-mode
+bindkey -e
+
 # +------------------------------------+
 # | Using terminfo in Application Mode |
 # +------------------------------------+
@@ -197,5 +200,3 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey -- "${keys[Down]}" down-line-or-beginning-search
 fi
 
-# dsiable vi-mode
-bindkey -e
