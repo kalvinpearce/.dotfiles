@@ -27,11 +27,6 @@ source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/bindings.zsh
 
-# edit current command line with vim (vim-mode, then CTRL-v)
-autoload -Uz edit-command-line
-zle -N edit-command-line
-bindkey -M vicmd '^v' edit-command-line
-
 source /usr/share/nvm/init-nvm.sh
 
 source $ZDOTDIR/plugins.zsh
