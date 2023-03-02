@@ -12,6 +12,7 @@ return {
 	harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
 	default_cursor_style = "BlinkingBar",
 	enable_csi_u_key_encoding = false,
+	warn_about_missing_glyphs = false,
 	exit_behavior = "Close",
 	adjust_window_size_when_changing_font_size = false,
 	window_close_confirmation = "NeverPrompt",
