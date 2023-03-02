@@ -196,3 +196,6 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
   zle -N down-line-or-beginning-search
   bindkey -- "${keys[Down]}" down-line-or-beginning-search
 fi
+
+# dsiable vi-mode
+bindkey -e
