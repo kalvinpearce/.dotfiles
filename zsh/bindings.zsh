@@ -200,3 +200,6 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey -- "${keys[Down]}" down-line-or-beginning-search
 fi
 
+run_nvim () { nvim < /dev/tty }
+zle -N run_nvim                  
+bindkey '^n' run_nvim
