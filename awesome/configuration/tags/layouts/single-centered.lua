@@ -11,6 +11,8 @@ local function arrange(p, type)
 	end
 
 	local area = p.workarea
+	width = math.min(width, area.width)
+	height = math.min(height, area.height)
 
 	local client = p.clients[1]
 	local geo
