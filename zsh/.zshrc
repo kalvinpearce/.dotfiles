@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
-# Enable Powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# # Enable Powerlevel10k instant prompt
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 setopt AUTO_CD              # Go to folder path without using cd.
 
@@ -25,8 +25,19 @@ setopt HIST_VERIFY               # Do not execute immediately upon history expan
 source $ZDOTDIR/env.zsh
 source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/completion.zsh
+source $ZDOTDIR/functions.zsh
 source $ZDOTDIR/bindings.zsh
 
 source $ZDOTDIR/plugins.zsh
+
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  # Look for an existing tmux session with no clients
+  session=$(tmux list-sessions | grep -v attached | awk -F: '{print $1}' | head -n 1)
+  if [[ -n "$session" ]]; then
+    exec tmux attach-session -t "$session"
+  else
+    exec tmux new-session
+  fi
+fi
 
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
