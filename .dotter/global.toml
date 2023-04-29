@@ -5,6 +5,7 @@
 [git.files]
 "git/.gitignore" = "~/.gitignore"
 "git/config" = "$XDG_CONFIG_HOME/git/config"
+"git/commit-template.txt" = "$XDG_CONFIG_HOME/git/commit-template.txt"
 
 [zsh.files]
 "zsh/.zshenv" = "~/.zshenv"

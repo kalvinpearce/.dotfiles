@@ -16,3 +16,5 @@
     colorMoved = default
 [safe]
 	directory = *
+[commit]
+	template = /home/kalvin/.config/git/commit-template.txt
