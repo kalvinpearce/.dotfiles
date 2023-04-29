@@ -22,7 +22,7 @@ local globalKeys = awful.util.table.join( -- Hotkeys
 	awful.key({ modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key({ modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }), -- Default client focus
 
-  -- Jump windows
+	-- Jump windows
 	awful.key({ modkey }, "k", function()
 		awful.client.focus.byidx(1)
 	end, { description = "focus next by index", group = "client" }),
@@ -179,10 +179,10 @@ local globalKeys = awful.util.table.join( -- Hotkeys
 
 	-- Brightness
 	awful.key({}, "XF86MonBrightnessUp", function()
-		awful.spawn("xbacklight -inc 10")
+		awful.spawn("sudo light -A 10")
 	end, { description = "+10%", group = "hotkeys" }),
 	awful.key({}, "XF86MonBrightnessDown", function()
-		awful.spawn("xbacklight -dec 10")
+		awful.spawn("sudo light -U 10")
 	end, { description = "-10%", group = "hotkeys" }), -- ALSA volume control
 	awful.key({}, "XF86AudioRaiseVolume", function()
 		awful.spawn.easy_async("amixer -D pulse sset Master 5%+", function()
