@@ -199,14 +199,20 @@ local globalKeys = awful.util.table.join( -- Hotkeys
 		_G.update_volume()
 	end, { description = "toggle mute", group = "hotkeys" }),
 	awful.key({}, "XF86AudioNext", function()
-		--
-	end, { description = "toggle mute", group = "hotkeys" }),
+		awful.spawn("playerctl next")
+	end, { description = "next track", group = "hotkeys" }),
+	awful.key({}, "XF86AudioPrev", function()
+		awful.spawn("playerctl previous")
+	end, { description = "previous track", group = "hotkeys" }),
+	awful.key({}, "XF86AudioPlay", function()
+		awful.spawn("playerctl play-pause")
+	end, { description = "play/pause", group = "hotkeys" }),
 	awful.key({}, "XF86PowerDown", function()
 		--
-	end, { description = "toggle mute", group = "hotkeys" }),
+	end, { description = "power down", group = "hotkeys" }),
 	awful.key({}, "XF86PowerOff", function()
 		_G.exit_screen_show()
-	end, { description = "toggle mute", group = "hotkeys" }),
+	end, { description = "power off", group = "hotkeys" }),
 
 	-- Open default program for tag
 	awful.key({ modkey }, "n", function()
