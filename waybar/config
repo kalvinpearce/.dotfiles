@@ -1,0 +1,163 @@
+// vim: filetype=jsonc
+
+{
+  "layer": "top", // Waybar at top layer
+  "margin": "8 4 0 4",
+  "height": 30, // Waybar height (to be removed for auto height)
+  "spacing": 0, 
+  "modules-left": ["idle_inhibitor", "wlr/workspaces", "custom/pacman"],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/headphones", "pulseaudio", "custom/spotify", "cpu", "memory", "backlight", "battery", "tray", "custom/notifications"],
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+
+  "wlr/workspaces": {
+    "on-click": "activate",
+    "disable-scroll": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "@",
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    },
+    "persistent_workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": [],
+      "6": []
+    }
+  },
+
+  "custom/pacman": {
+    "format": "{} ",
+    "interval": 3600,                     			// every hour
+    "exec": "(checkupdates;paru -Qu) | wc -l",	// # of updates
+    "exec-if": "exit 0",                  			// always run; consider advanced run conditions
+    "on-click": "kitty sh -c 'paru; echo Done - Press enter to exit; read'; pkill -SIGRTMIN+8 waybar", // update system
+    "signal": 8,
+    "tooltip": false,
+  },
+
+
+  "clock": {
+    // "timezone": "Australia/Brisbane",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%a, %d %b, %I:%M %p}",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+
+
+  "custom/headphones": {
+    "format": "{}  ",
+    "interval": 10,                     			        // every 10 seconds
+    "exec": "$XDG_CONFIG_HOME/waybar/headphones.sh",	// # of updates
+    "exec-if": "exit 0",                  			      // always run; consider advanced run conditions
+    "on-click": "headsetcontrol -l 0", 
+    "signal": 8,
+    "tooltip": false,
+    "return-type": "json",
+  },
+
+  "pulseaudio": {
+    "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": "  {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "custom/spotify": {
+    "format": "{icon} {}",
+    "escape": true,
+    "return-type": "json",
+    "max-length": 40,
+    "on-click": "playerctl -p spotify play-pause",
+    "on-click-right": "killall spotify",
+    "on-scroll-up" : "playerctl -p spotify next",
+    "on-scroll-down" : "playerctl -p spotify previous",
+    "exec": "$XDG_CONFIG_HOME/waybar/mediaplayer.py 2> /dev/null",
+    "exec-if": "pgrep spotify"
+  },
+
+  "cpu": {
+    "format": "{usage}% 󰻠"
+  },
+
+  "memory": {
+    "format": "{}% 󰍛"
+  },
+
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10
+  },
+
+  "custom/notifications": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
+}
+

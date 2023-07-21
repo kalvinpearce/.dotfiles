@@ -65,3 +65,16 @@ end)
 _G.client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
+
+-- fix unity
+_G.tag.connect_signal("property::selected", function(t)
+	local clients = awful.client.visible(s)
+	for _, client in pairs(clients) do
+		if awful.rules.match(client, { class = "Unity" }) then
+			client.border_width = client.border_width + 1
+			gears.timer.start_new(1 / 60, function()
+				client.border_width = client.border_width - 1
+			end)
+		end
+	end
+end)

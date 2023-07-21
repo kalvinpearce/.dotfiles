@@ -185,7 +185,10 @@ bindkey -- "${keys[Shift+Tab]}"       .reverse-menu-complete
 bindkey -- "${keys[Ctrl+Left]}"       .backward-word
 bindkey -- "${keys[Ctrl+Right]}"      .forward-word
 bindkey -- "${keys[Ctrl+Backspace]}"  .backward-kill-word
+bindkey -- "${keys[Ctrl+Delete]}"     .backward-kill-word
 
+autoload -U select-word-style
+select-word-style bash
 
 # Start typing + [Up-Arrow] - fuzzy find history forward
 if [[ -n "${terminfo[kcuu1]}" ]]; then

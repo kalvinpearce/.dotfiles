@@ -21,4 +21,7 @@ export PNPM_HOME="$XDG_DATA_HOME/pnpm"
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 export ERRFILE="$XDG_CACHE_HOME/X11/xsession-errors"
+
+# start display manager
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx $XINITRC
+# [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && Hyprland

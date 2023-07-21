@@ -27,10 +27,9 @@ source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/completion.zsh
 source $ZDOTDIR/functions.zsh
 source $ZDOTDIR/bindings.zsh
-
 source $ZDOTDIR/plugins.zsh
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ $(tty) != "/dev/tty1" ]] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
   # Look for an existing tmux session with no clients
   session=$(tmux list-sessions | grep -v attached | awk -F: '{print $1}' | head -n 1)
   if [[ -n "$session" ]]; then
@@ -40,4 +39,15 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
   fi
 fi
 
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+# [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# pnpm
+export PNPM_HOME="/home/kalvin/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"

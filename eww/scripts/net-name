@@ -1,0 +1,22 @@
+#!/bin/sh
+
+isconnectedvia() {
+	isconnected=$(nmcli -t -fields TYPE,STATE device | awk --field-separator : '{if($1 == "'"$1"'" && $2 == "connected") print "true";}')
+	if [ "$isconnected" = true ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+if isconnectedvia ethernet; then
+  device=$(nmcli -t -fields TYPE,DEVICE device | awk --field-separator : '{if($1 == "ethernet") print $2; exit;}')
+elif isconnectedvia wifi; then
+	device=$(nmcli -t -fields TYPE,DEVICE device | awk --field-separator : '{if($1 == "wifi") print $2; exit;}')
+else
+	exit 1
+fi
+
+connname=$(nmcli -t -fields DEVICE,CONNECTION device | awk --field-separator : '{if($1 == "'"$device"'") print $2;}')
+ip=$(ip addr show "$device" | grep 'inet ' | awk '{print $2}' | cut -f1 -d'/')
+echo "$connname ($ip)"

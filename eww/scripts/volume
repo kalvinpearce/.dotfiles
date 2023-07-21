@@ -1,0 +1,21 @@
+#!/bin/sh
+icon() {
+	volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\d+%' | head -1 | tr -d '%')
+	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | grep -oP 'yes|no')
+
+	if [ "$muted" = "yes" ]; then
+		icon="󰸈"
+	elif [ "$volume" -gt 66 ]; then
+		icon="󰕾"
+	elif [ "$volume" -gt 33 ]; then
+		icon="󰖀"
+	elif [ "$volume" -gt 0 ]; then
+		icon="󰕿"
+	else
+		icon="󰸈"
+	fi
+	printf '{"volume":"%s","icon":"%s"}\n' "$volume" "$icon"
+}
+
+icon
+pactl subscribe | grep --line-buffered "Event 'change' on sink " | while read -r _; do icon; done

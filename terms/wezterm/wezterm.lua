@@ -23,4 +23,11 @@ return {
 		bottom = 0,
 	},
 	check_for_updates = false,
+	keys = {
+		{
+			key = "Backspace",
+			mods = "CTRL",
+			action = wezterm.action.SendKey({ key = "w", mods = "CTRL" }),
+		},
+	},
 }

@@ -2,12 +2,14 @@
 
 alias dotter="cd $HOME/.dotfiles && .dotter/dotter"
 
+# ls alias check if exa is installed, if not, use ls
 alias ls='ls --color=auto'
-alias lsl='ls -l'
-alias ll='ls -lahF'
-alias lls='ls -lahFtr'
-alias la='ls -lah'
-alias l='ls -CF'
+if command -v exa &> /dev/null; then
+  alias exa='exa --color=always'
+  alias la="exa -lah"
+else
+  alias la="la -lah"
+fi
 
 alias cp='cp -iv'
 alias mv='mv -iv'

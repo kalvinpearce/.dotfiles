@@ -1,2 +1,2 @@
-xrdb $XDG_CONFIG_HOME/xresources
+xrdb $XDG_CONFIG_HOME/X11/Xresources
 exec awesome

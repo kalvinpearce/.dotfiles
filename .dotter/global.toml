@@ -39,6 +39,14 @@
 [awesome.files]
 "awesome" = { target = "$XDG_CONFIG_HOME/awesome", type = "symbolic" }
 
+[hyprland.files]
+"hypr" = { target = "$XDG_CONFIG_HOME/hypr", type = "symbolic" }
+
+[eww.files]
+"eww" = { target = "$XDG_CONFIG_HOME/eww", type = "symbolic" }
+
+[waybar.files]
+"waybar" = { target = "$XDG_CONFIG_HOME/waybar", type = "symbolic" }
 
 # Misc
 
@@ -65,6 +73,15 @@
 # "rofi/.emoji_list" = ".emoji_list"
 "rofi" = "$XDG_CONFIG_HOME/rofi"
 
+[wofi.files]
+"wofi" = { target = "$XDG_CONFIG_HOME/wofi", type = "symbolic" }
+
+[dunst.files]
+"dunst" = { target = "$XDG_CONFIG_HOME/dunst", type = "symbolic" }
+
+[swaync.files]
+"swaync" = { target = "$XDG_CONFIG_HOME/swaync", type = "symbolic" }
+
 
 # Packs
 
@@ -80,5 +97,11 @@ depends = [
   "wezterm",
   "awesome",
   "rofi",
+  "wofi",
+  "dunst",
+  "hyprland",
+  "eww",
+  "waybar",
+  "swaync",
   "flameshot",
 ]

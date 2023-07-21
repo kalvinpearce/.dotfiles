@@ -13,7 +13,7 @@ function source_or_run() {
     fi
 }
 
-source_or_run powerlevel10k powerlevel10k.zsh-theme "https://github.com/romkatv/powerlevel10k.git"
+# source_or_run powerlevel10k powerlevel10k.zsh-theme "https://github.com/romkatv/powerlevel10k.git"
 source_or_run zsh-autosuggestions zsh-autosuggestions.zsh "https://github.com/zsh-users/zsh-autosuggestions"
 source_or_run zsh-syntax-highlighting zsh-syntax-highlighting.zsh "https://github.com/zsh-users/zsh-syntax-highlighting.git"
 

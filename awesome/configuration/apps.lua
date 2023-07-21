@@ -25,7 +25,6 @@ return {
 		"~/.config/awesome/configuration/autostart", -- Spawn "dirty" apps that can linger between sessions
 		"nitrogen --restore",
 		"gwe --hide-window",
-		"signal-desktop --start-in-tray",
 		"nm-applet --indicator",
 		-- 'ibus-daemon --xim --daemonize', -- Ibus daemon for keyboard
 		-- 'blueman-tray' -- bluetooth tray

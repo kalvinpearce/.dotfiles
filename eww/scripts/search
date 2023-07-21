@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+
+#from ahocorasick_rs import AhoCorasick
+import configparser
+import json
+import sys
+import os
+
+if len(sys.argv) != 2:
+    print("bitch give me a query")
+    sys.exit(1)
+
+query = sys.argv[1].lower()
+query_words = query.split(' ')
+query_words = [x for x in query_words if x.strip() != ""]
+#query_ahocorasick = AhoCorasick(query_words)
+
+
+def get_desktop_files_in(dir: str) -> dict[str, dict[str, dict[str, str]]]:
+    dict = {}
+    for file in os.listdir(dir):
+        if file.endswith(".desktop"):
+            file = os.path.join(dir, file)
+            config = configparser.ConfigParser(interpolation=None)
+            config.read(file)
+            section_dict = {}
+            for section in config.sections():
+                option_dict = {}
+                for option in config.options(section):
+                    option_dict[option] = config.get(section, option)
+                section_dict[section] = option_dict
+            dict[file] = section_dict
+    return dict
+
+
+def get_desktop_files() -> list[dict[str, dict[str, str]]]:
+    paths = [os.environ.get(
+        "XDG_DATA_HOME", os.environ.get("HOME") + "/.local/share")]
+    paths += os.environ.get("XDG_DATA_DIRS",
+                            "/usr/local/share:/usr/share").split(":")
+    paths = [x + "/applications" for x in paths]
+
+    desktop_files = {}
+
+    for path in paths:
+        if os.path.exists(path):
+            desktops = get_desktop_files_in(path)
+            for name, content in desktops.items():
+                if not name in desktop_files:
+                    desktop_files[name] = content
+
+    return [x for x in desktop_files.values()]
+
+
+desktops = get_desktop_files()
+# filter nodisplay and hidden
+desktops = [x for x in desktops if not (x['Desktop Entry'].get(
+    'nodisplay') == 'true' or x['Desktop Entry'].get('hidden') == 'true')]
+
+# list of (score, desktop file)
+search_results = []
+
+searched_fields = ['name', 'comment',
+                   'genericname', 'exec', 'categories', 'keywords']
+for desktop in desktops:
+    entry = desktop['Desktop Entry']
+    score = 0
+    for field in searched_fields:
+        field_value = entry.get(field)
+        if field_value == None:
+            continue
+        #matches = query_ahocorasick.find_matches_as_indexes(
+            #field_value.lower())
+        #score += len(matches)
+        for word in query_words:
+            if word in field_value.lower():
+                score += 1
+    if score != 0:
+        search_results += [(score, desktop)]
+
+# sort by score
+search_results.sort(key=lambda x: x[0])
+search_results = [x for (_, x) in search_results]
+
+# virtual entries
+if query == 'cancel':
+    search_results = [{
+        'Desktop Entry': {
+            'name': 'cancel search',
+            'exec': 'true'
+        }
+    }] + search_results
+if query == 'suspend':
+    search_results = [{
+        'Desktop Entry': {
+            'name': 'suspend system',
+            'exec': 'systemctl suspend'
+        }
+    }] + search_results
+if query == 'reboot':
+    search_results = [{
+        'Desktop Entry': {
+            'name': 'reboot system',
+            'exec': 'reboot'
+        }
+    }] + search_results
+if query == 'shutdown' or query == 'poweroff' or query == 'off':
+    search_results = [{
+        'Desktop Entry': {
+            'name': 'shut down system',
+            'exec': 'poweroff'
+        }
+    }] + search_results
+if query == 'logout':
+    search_results = [{
+        'Desktop Entry': {
+            'name': 'log out',
+            'exec': 'hyprctl dispatch exit'
+        }
+    }] + search_results
+
+# only return top 10 matches
+search_results = search_results[:10]
+
+# post processing
+#icon_theme = Gtk.IconTheme.get_default()
+for result in search_results:
+    # run terminal apps with kitty
+    if result['Desktop Entry'].get('terminal') == 'true':
+        result['Desktop Entry']['exec'] = 'kitty ' + \
+            result['Desktop Entry']['exec']
+
+    # replace exec placeholders
+    # todo: we could actually fill in %i, %c, %k, just not done yet because they're rare
+    result['Desktop Entry']['exec'] = result['Desktop Entry']['exec'].replace('%f', '').replace('%F', '').replace(
+        '%u', '').replace('%U', '').replace('%i', '').replace('%c', '').replace('%k', '')
+
+    # resolve icon path
+    """
+    if result['Desktop Entry'].get('icon') != None:
+        icon = icon_theme.lookup_icon(result['Desktop Entry']['icon'], 512, 0)
+        if icon != None:
+            result['Desktop Entry']['icon'] = icon.get_filename()
+        else:
+            del result['Desktop Entry']['icon']
+    """
+
+with open(os.path.join(os.environ.get('HOME'), '.config/eww/search-results.json'), 'w') as f:
+    json.dump(search_results, f)
+    # we have to add a newline or eww won't recognize that something changed
+    f.write("\n")

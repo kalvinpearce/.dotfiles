@@ -1,0 +1,87 @@
+* {
+  all: unset;
+}
+
+window {
+  font-family: "Hack Nerd Font";
+  font-size: 14px;
+  color: #fff;
+}
+
+.sidebar {
+  .sidebar_content {
+    background: rgba(#303446, 1);
+    margin: 8px;
+    margin-bottom: 0;
+    border-radius: 5px;
+  }
+
+  .workspaces_area {
+    .workspace {
+      margin: 8px;
+      border-radius: 9999px;
+
+      &.occupied {
+        background: #494d64;
+      }
+
+      &.current {
+        background: #f5bde6;
+        color: #24273a;
+      }
+    }
+  }
+
+  .status_area box {
+    background: #414559;
+    margin: 4px;
+    padding: 8px;
+    border-radius: 9999px;
+
+    .time {
+      font-weight: bold;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    scale trough {
+      min-width: 80px;
+      min-height: 6px;
+      background: #5b6078;
+      border-radius: 3px;
+      margin: 9px;
+
+      slider {
+        min-width: 18px;
+        min-height: 18px;
+        border-radius: 50%;
+        background: #939ab7;
+        margin: -9px;
+
+        &:hover {
+          background: #a5adcb;
+        }
+      }
+
+      highlight {
+        background: #f5bde6;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+.icon {
+  font-size: 16px;
+}
+
+tooltip {
+  background: #494d64;
+  border: 2px solid #f5bde6;
+  border-radius: 10px;
+}
+
+selection {
+  background: #f5bde6;
+  color: #24273a;
+}

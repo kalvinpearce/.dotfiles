@@ -1,0 +1,29 @@
+#!/bin/sh
+
+isconnectedvia() {
+	isconnected=$(nmcli -t -fields TYPE,STATE device | awk --field-separator : '{if($1 == "'$1'" && $2 == "connected") print "true";}')
+	if [ "$isconnected" = true ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+if isconnectedvia ethernet; then
+	icon="󰈀"
+elif isconnectedvia wifi; then
+	signal=$(nmcli -t -fields SIGNAL,ACTIVE device wifi | awk --field-separator : '{if($2=="yes") print $1}')
+	if [ "$signal" -gt 75 ]; then
+		icon="󰤨"
+	elif [ "$signal" -gt 50 ]; then
+		icon="󰤥"
+	elif [ "$signal" -gt 25 ]; then
+		icon="󰤢"
+	else
+		icon="󰤟"
+	fi
+else
+	icon="󰤭"
+fi
+
+echo "$icon"

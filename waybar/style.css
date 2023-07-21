@@ -1,0 +1,149 @@
+* {
+  font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+window#waybar {
+  background: transparent;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+#workspaces,
+#battery,
+#pulseaudio,
+#idle_inhibitor {
+  transition-property: background-color, color;
+  transition-duration: 0.5s;
+}
+
+#custom-pacman,
+#custom-headphones,
+#custom-spotify,
+#custom-notifications,
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#mpd,
+#workspaces {
+  padding: 0 10px;
+  border-radius: 5px;
+  background: #303446;
+
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+#cpu {
+  margin-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+#memory {
+  margin-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#custom-pacman {
+  padding-right: 16px;
+}
+
+#workspaces {
+  padding: 0;
+}
+
+#workspaces button {
+  padding: 0 5px;
+  background-color: transparent;
+  color: #ffffff;
+}
+
+#workspaces button:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.active {
+  background-color: #64727d;
+}
+
+#workspaces button.urgent {
+  background-color: #eb4d4b;
+}
+
+#clock {
+  font-weight: bold;
+}
+
+#custom-headphones.disconnected {
+  opacity: 0;
+}
+#custom-headphones.warning {
+  color: #e78284;
+}
+#custom-headphones.charging {
+  color: #a3cd87;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: #ffffff;
+  background-color: #26a65b;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: #f53c3c;
+  color: #ffffff;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+label:focus {
+  background-color: #000000;
+}
+
+#pulseaudio.muted {
+  color: #e78284;
+}
+
+#tray {
+  min-width: 20px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #eb4d4b;
+}
+
+#idle_inhibitor.activated {
+  background-color: #a6d189;
+  color: #000000;
+}

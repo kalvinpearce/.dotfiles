@@ -1,0 +1,121 @@
+(defwindow sidebar
+  :monitor 0
+  :exclusive true
+  :geometry (geometry 
+    :width "100%"
+    :height "50px"
+    :x "0px" 
+    :y "0px" 
+    :anchor "top center")
+  (sidebar_layout))
+
+(defwidget sidebar_layout []
+  (box
+    :class "sidebar_content"
+    :space-evenly false
+    (workspaces_area)
+    (spacer)
+    (status_area)))
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defwidget workspaces_area []
+  (eventbox :onscroll "~/.config/eww/scripts/change-active-workspace {} ${current_workspace}"
+    (box 
+      :class "workspaces_area" 
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box
+            :width 43
+            :class "workspace ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id}")))))))
+
+(defwidget spacer [] (box :vexpand true :hexpand true))
+
+(defwidget status_area []
+  (box
+    :class "status_area"
+    :valign "center"
+    :spacing 12
+    :space-evenly false
+    (brightness)
+    (volume)
+    (battery)
+    (net)
+    (clock)))
+
+; todo: change current brightness to a listen var
+(defvar brightness_open false)
+(defpoll curr_brightness :interval "1m"
+  `brightnessctl -md intel_backlight | grep -oP '\\d+%' | tr -d '%'`)
+(defpoll brightness_installed :interval "1h"
+  `command -v brightnessctl >/dev/null 2>&1 && echo true || echo false`)
+(defwidget brightness []
+  (eventbox
+    :visible brightness_installed
+    :onhover "${EWW_CMD} update brightness_open=true"
+    :onhoverlost "${EWW_CMD} update brightness_open=false"
+    (box
+      :width 50
+      :space-evenly false
+    (label :text "󰃠" :class "icon")
+      (revealer
+        :transition "slideright"
+        :reveal brightness_open
+        (scale
+          :min 0
+          :max 101
+          :value curr_brightness
+         :onchange "brightnessctl -d intel_backlight set {}%"))
+    )))
+
+(defvar volume_open false)
+(deflisten volume `scripts/volume`)
+(defwidget volume []
+  (eventbox
+    :onhover "${EWW_CMD} update volume_open=true"
+    :onhoverlost "${EWW_CMD} update volume_open=false"
+    (box
+      :space-evenly false
+      (label :text "${volume.icon} ${volume.volume}%" :class "icon volume")
+    (revealer
+        :transition "slideright"
+        :reveal volume_open
+      (scale
+          :min 0
+          :max 101 ; exclusive
+          :value {volume.volume}
+          :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")))))
+
+(defpoll battery_icon :interval "1s"
+  `scripts/battery-icon`)
+(defpoll battery_present :interval "1h"
+  `test -d /sys/class/power_supply/BAT0 && echo true || echo false`)
+
+(defwidget battery []
+  (box
+    :visible battery_present
+    :tooltip "${EWW_BATTERY.BAT0.status}%"
+    (label
+      :text battery_icon
+      :class "icon")))
+
+(defpoll net_icon :interval "1m"
+  `scripts/net-icon`)
+(defpoll net_name :interval "1m"
+  `scripts/net-name`)
+(defwidget net []
+  (box
+    :width 50
+    :tooltip net_name
+    (label
+      :text net_icon
+      :class "icon")))
+
+(defpoll datetime :interval "1m"
+  `date +'{"hour":"%H","min":"%M","day":"%d","month":"%m","year":"%Y"}'`)
+(defwidget clock []
+  (box 
+    :tooltip "${datetime.year}-${datetime.month}-${datetime.day}"
+    (label :text "${datetime.hour}:${datetime.min}" :class "time")
+    ))
